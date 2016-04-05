@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<articlelList desc="欢迎关注37学车">
+	<Article lang="1">
+		<Title>我要学习</Title>
+		<Description>书法学习</Description>
+		<PicUrl>http://wxreports.bringbi.com/image/menu/banner_big.jpg</PicUrl>
+		<Url>http://baidu.com/</Url>
+	</Article>
+	<Article lang="2">
+		<Title>书法提高小朋友各方面能力</Title>
+		<Description>出炉啦</Description>
+		<PicUrl>http://wxreports.bringbi.com/image/menu/banner_big.jpg</PicUrl>
+		<Url>http://news.baidu.com/</Url>
+	</Article>
+</articlelList>

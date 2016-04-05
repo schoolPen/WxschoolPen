@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<articlelList>
+	<Article>
+		<Title>预约练车</Title>
+		<Description>通过微信预约教练，并能根据自己的喜好或意愿选择教练，无需要另行给驾校打电话。并在每节课学习结束后对该教练的教学进行评价。</Description>
+		<PicUrl>http://html5demo.bringbi.com/image/menu/banner_big.jpg</PicUrl>
+		<Url>http://html5demo.bringbi.com/main?type=login</Url>
+	</Article>
+</articlelList>
