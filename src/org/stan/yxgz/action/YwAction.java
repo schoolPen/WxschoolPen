@@ -36,7 +36,12 @@ public class YwAction extends KanqActionSupport {
 		ModelAndView view=new ModelAndView("/index/courceList");
 		return view;
 	}
-	
+	@RequestMapping(value = "register", method = RequestMethod.GET )
+	@ResponseBody
+	public ModelAndView register() throws Exception {
+		ModelAndView view=new ModelAndView("/index/register");
+		return view;
+	}
 	
 	@RequestMapping(value = "isExist", method = RequestMethod.GET )
 	@ResponseBody
