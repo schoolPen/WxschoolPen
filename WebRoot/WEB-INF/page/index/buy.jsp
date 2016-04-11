@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>课程列表</title>
+<title>购买课程详细信息</title>
 <link rel="stylesheet" type="text/css" href="${root1 }/css/common.css" />
 <script type="text/javascript" src="${root1 }/js/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="${root1 }/js/center.js"></script>
@@ -24,8 +24,8 @@ $(function(){
 <div class="ifrRight">
 	<!-- main -->
 	<div class="yjBox">
-			<span class="tjTip">课程列表<em>welcome!</em></span>
 			<div class="tjBox">
+			<span>您本次报班的相信信息，请你再次确认:</span>
 					<dl class="tcont">
 						<dd>
 							<div class="bfo">
@@ -46,50 +46,20 @@ $(function(){
 										<p>
 											课程详细介绍
 										</p>
-										<a href="glgd.html" target="_iframe">查看信息</a>
+										
 									</dd>
 								</dl>
 							</div>
-						</dd>
-						<dd>
-							<div class="bfo">
-								<dl>
-									<dt>2015-06-28&nbsp;&nbsp;毛笔硬笔初级中级<em>8课时</em>
-									<br/>
-									地点：美林花园     时间：2016-04-05
-									<em><a>价格：1088元&nbsp;&nbsp;缴费</a></em>
-									<i></i></dt>
-									<dd>
-										<p>
-											课程详细介绍
-										</p>
-										<a href="glgd.html" target="_iframe">查看信息</a>
-									</dd>
-								</dl>
-							
-							</div>
-						</dd>
-						<dd>
-							<div class="bfo">
-								<dl>
-									<dt>2015-12-12&nbsp;&nbsp;毛笔硬笔高级<em>8课时</em>
-									<br/>
-									地点：美林花园     时间：2016-04-05
-									<em><a>价格：1088元&nbsp;&nbsp;缴费</a></em>
-									<i></i></dt>
-									<dd>
-										<p>
-											课程详细介绍
-										</p>
-										<a href="glgd.html" target="_iframe">查看信息</a>
-									</dd>
-								</dl>
-								
-							</div>
-						</dd>
-						
+						</dd>						
 					</dl>
 			</div>
+			
+			
+			<div class="btnBtm">
+				<button >确认付款</button>
+			</div>
+			
+			
 		</div>
 				
 				</div>

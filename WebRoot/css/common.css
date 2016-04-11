@@ -285,7 +285,7 @@ box-shadow:1px 0px 3px #d0dad2;
 .addBox input[type='radio']{vertical-align:middle;margin-right:3px;}
 .addBox label{margin:0 50px 0 10px;}
 .window-mask{width:100% !important;}
-.btnBtm{text-align:right;}
+.btnBtm{text-align:center;}
 .btnBtm a span{line-height:33px !important;}
 .winBox{width:275px;margin:0 auto;padding:10% 0;}
 .tipFail{float:left;background:url(../image/win_ico.png) no-repeat 0 10px;height:61px;width:60px;display:inline-block;padding-right:20px;}
@@ -394,7 +394,7 @@ box-shadow:1px 0px 3px #d0dad2;
 
 .bfo dl{margin:10px 20px 10px 40px;padding:0;position:relative;}
 .bfo dt{background-color:#dcedfd;color:#000;font-size:16px;cursor:pointer;position:relative;padding:5px 0 5px 20px;}
-.bfo dt em{padding-left:15px;margin-left:20px;background:url(../image/icon_tj_r.png) no-repeat 0 2px;color:#a3a3a3;font-size:12px;}
+.bfo dt em{padding-right：10px;float:right;padding-left:15px;margin-right:15px;background:url(../image/icon_tj_r.png) no-repeat 0 2px;color:#a3a3a3;font-size:12px;}
 .bfo dt i{background:url(../image/icon_sub_btn.png) no-repeat 0 15px;float:right;margin-right:10px;height:25px;width:20px;cursor:pointer;}
 .bfo dt i.addI{background-position:0 -15px;}
 bfo .active{display:block;}

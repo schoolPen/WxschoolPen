@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.stan.yxgz.pojo.User;
 import org.stan.yxgz.util.KanqActionSupport;
 
 /*
@@ -21,8 +22,18 @@ public class YwAction extends KanqActionSupport {
 /*	@Resource
 	private IOperatorService operatorService;
 */
-
+	private User user=new User();
 	
+	
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@RequestMapping(value = "mineClass", method = RequestMethod.GET )
 	@ResponseBody
 	public ModelAndView mineClass() throws Exception {
@@ -36,12 +47,62 @@ public class YwAction extends KanqActionSupport {
 		ModelAndView view=new ModelAndView("/index/courceList");
 		return view;
 	}
+	@RequestMapping(value = "addCource", method = RequestMethod.GET )
+	@ResponseBody
+	public ModelAndView addCource() throws Exception {
+		ModelAndView view=new ModelAndView("/index/courceAdd");
+		return view;
+	}
+	
 	@RequestMapping(value = "register", method = RequestMethod.GET )
 	@ResponseBody
 	public ModelAndView register() throws Exception {
 		ModelAndView view=new ModelAndView("/index/register");
 		return view;
 	}
+	
+	
+	@RequestMapping(value = "subUser", method = RequestMethod.POST )
+	@ResponseBody
+	public ModelAndView subUser(){
+		ModelAndView view=new ModelAndView("/index/buy");
+		String studentName=request.getParameter("studentName");
+		String phone=request.getParameter("phone");
+		String sex=request.getParameter("sex");
+		String address=request.getParameter("address");
+		String bornYear=request.getParameter("bornYear");
+		String bornMonth=request.getParameter("bornMonth");
+		String inSchool=request.getParameter("inSchool");
+		user.setAddress(address);
+		user.setSex(sex);
+		user.setBornMonth(bornMonth);
+		user.setBornYear(bornYear);
+		user.setInSchool(inSchool);
+		user.setPhone(phone);
+		user.setStudentName(studentName);
+		System.out.println(user.getAddress());
+		return view;
+	}
+	
+	@RequestMapping(value = "subCourse", method = RequestMethod.POST )
+	@ResponseBody
+	public ModelAndView subCourse(){
+		ModelAndView view=new ModelAndView("/index/courceList");
+		String courceName=request.getParameter("courceName");
+		String courceType=request.getParameter("courceType");
+		String teacherName=request.getParameter("teacherName");
+		String period=request.getParameter("period");
+		String btime=request.getParameter("btime");
+		String etime=request.getParameter("etime");
+		String ptime=request.getParameter("ptime");
+		String address=request.getParameter("address");
+		String pcount=request.getParameter("pcount");
+		String ptotal=request.getParameter("ptotal");
+		String common=request.getParameter("common");
+		
+		return view;
+	}
+	
 	
 	@RequestMapping(value = "isExist", method = RequestMethod.GET )
 	@ResponseBody

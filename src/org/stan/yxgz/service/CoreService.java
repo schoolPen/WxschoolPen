@@ -64,7 +64,7 @@ public class CoreService {
 				} else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
 					System.out.println("------解绑开始--------");
 					InterfaceService.unbinded(fromUserName);
-					respContent = "感谢你关注资源信息平台！祝你生活愉快\n";
+					respContent = "感谢你关注蔡老师培训班！祝你生活愉快\n";
 					textMsgResp.setContent(respContent);
 					respMessage = MessageUtil.textMessageToXml(textMsgResp);
 				} else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {
@@ -130,7 +130,7 @@ public class CoreService {
 						textMsgResp.setContent(respContent);
 						respMessage = MessageUtil.textMessageToXml(textMsgResp);
 					}else if (eventKey.equals("b3")) {
-						respContent = getHelp();
+						respContent = "暂无信息";
 						textMsgResp.setContent(respContent);
 						respMessage = MessageUtil.textMessageToXml(textMsgResp);
 					}else if (eventKey.equals("b4")) {
@@ -194,17 +194,6 @@ public class CoreService {
 	}
 	
 	
- 
-    
-    public static String getHelp() {  
-        StringBuffer buffer = new StringBuffer();  
-        buffer.append("操作指南").append("\n\n");  
-        buffer.append("回复：宽带+小区名").append("\n");  
-        buffer.append("例如：宽带东方花园").append("\n");  
-        buffer.append("即可查看东方花园小区的资源情况").append("\n\n");  
-        buffer.append("/可爱/可爱/可爱 ");  
-        return buffer.toString();  
-    }  
     
     public static String subscribeStr(){
     	StringBuffer buffer = new StringBuffer();  
