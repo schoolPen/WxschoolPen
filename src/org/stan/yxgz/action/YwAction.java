@@ -1,11 +1,21 @@
 package org.stan.yxgz.action;
+import java.io.UnsupportedEncodingException;
+import java.sql.Date;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.stan.yxgz.pojo.User;
+import org.stan.yxgz.service.WXinterfaceService;
 import org.stan.yxgz.util.KanqActionSupport;
+
+import com.dt.dtpt.mybatis.model.sijiao.EduCourse;
+import com.dt.dtpt.mybatis.model.sijiao.EduStudent;
+import com.dt.dtpt.service.sijiao.SijiaoService;
 
 /*
 *<P>维权信息查询</P>
@@ -25,7 +35,9 @@ public class YwAction extends KanqActionSupport {
 	private User user=new User();
 	
 	
-	
+
+	private SijiaoService sijiao;
+
 	public User getUser() {
 		return user;
 	}
@@ -41,18 +53,32 @@ public class YwAction extends KanqActionSupport {
 		return view;
 	}
 	
+	//SijiaoService sijiao1;
 	@RequestMapping(value = "courceList", method = RequestMethod.GET )
 	@ResponseBody
 	public ModelAndView courceList() throws Exception {
+		//sijiao1.getCourse(" ");
 		ModelAndView view=new ModelAndView("/index/courceList");
-		return view;
+		Map<String, Object> result;
+		EduCourse  ec = null ;
+			result = WXinterfaceService.findWxCourses(ec);
+		
+		return null;
 	}
+	
+	//添加课程
 	@RequestMapping(value = "addCource", method = RequestMethod.GET )
 	@ResponseBody
 	public ModelAndView addCource() throws Exception {
 		ModelAndView view=new ModelAndView("/index/courceAdd");
+		//判断是否为管理员
+		Map<String, Object> result;
+		EduCourse  ec = null ;
+			result = WXinterfaceService.addCourseByWx(ec);
 		return view;
 	}
+	
+	
 	
 	@RequestMapping(value = "register", method = RequestMethod.GET )
 	@ResponseBody
@@ -60,7 +86,6 @@ public class YwAction extends KanqActionSupport {
 		ModelAndView view=new ModelAndView("/index/register");
 		return view;
 	}
-	
 	
 	@RequestMapping(value = "subUser", method = RequestMethod.POST )
 	@ResponseBody
@@ -81,6 +106,20 @@ public class YwAction extends KanqActionSupport {
 		user.setPhone(phone);
 		user.setStudentName(studentName);
 		System.out.println(user.getAddress());
+		
+//		if(user!=null){
+//			Map<String, Object> result;
+//			try {
+//				result = WXinterfaceService.isWxManerger(user);
+//				System.out.println(result.get("title"));
+//			} catch (UnsupportedEncodingException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}else{
+//			System.out.println("操作失败");
+//		}
+//		
 		return view;
 	}
 	
