@@ -71,10 +71,27 @@ public class YwAction extends KanqActionSupport {
 	@ResponseBody
 	public ModelAndView addCource() throws Exception {
 		ModelAndView view=new ModelAndView("/index/courceAdd");
-		//判断是否为管理员
-		Map<String, Object> result;
-		EduCourse  ec = null ;
-			result = WXinterfaceService.addCourseByWx(ec);
+		
+		Map<String, Object> resultC;
+		EduCourse ec = null;
+			resultC = WXinterfaceService.addCourseByWx(ec);
+		System.out.println("添加课程"+resultC);
+		System.out.println("添加课程状态："+resultC.get("state").toString());
+		Object state = resultC.get("state");
+		if((Boolean) state){
+			
+		}else{
+			//添加学员
+			EduStudent  es = null ;
+			Map<String, Object> resultS;
+			resultS =WXinterfaceService.addStudentByWx(es);
+			System.out.println("添加学员"+resultS);
+			System.out.println("学员状态："+resultS.get("state").toString());
+			
+			Map<String, Object> resultFS = WXinterfaceService.findEduStudents();
+			System.out.println("查询是否有学员："+resultFS);
+		}
+		
 		return view;
 	}
 	
