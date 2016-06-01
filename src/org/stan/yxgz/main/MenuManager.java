@@ -48,22 +48,23 @@ public class MenuManager {
 	}
 
 	public static Menu getMenu() {
-		
+		//shId=6827b4cf-0eff-4545-9e4f-da8510351fca
+
 		ViewButton btn11 = new ViewButton();
 		btn11.setName("课程列表");
 		btn11.setType("view");
-		btn11.setUrl("http://html5demo.bringbi.com/reportTree/common.html");
+		btn11.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa76644985975ad93&redirect_uri=http%3a%2f%2foepp.cn%2fWxschoolPen%2findex%2ftempMinCourse.do&response_type=code&scope=snsapi_base&state=2343#wechat_redirect");
 		
 		ViewButton btn12 = new ViewButton();
 		btn12.setName("学习历程");
 		btn12.setType("view");
-		btn12.setUrl("http://html5demo.bringbi.com/reportTree/common.html");
+		btn12.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa76644985975ad93&redirect_uri=http%3a%2f%2foepp.cn%2fWxschoolPen%2findex%2ftempProcess.do&response_type=code&scope=snsapi_base&state=2343#wechat_redirect");
 		
 		
-		CommonButton btn21 = new CommonButton();
-		btn21.setKey("a1");
+		ViewButton btn21 = new ViewButton();
 		btn21.setName("班级介绍");
-		btn21.setType("click");
+		btn21.setType("view");
+		btn21.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa76644985975ad93&redirect_uri=http%3a%2f%2foepp.cn%2fWxschoolPen%2findex%2ftempCourse.do&response_type=code&scope=snsapi_base&state=2343#wechat_redirect");
 		
 		CommonButton btn22 = new CommonButton();
 		btn22.setKey("a2");
@@ -75,12 +76,12 @@ public class MenuManager {
 		ViewButton btn31 = new ViewButton();
 		btn31.setName("调课通知");
 		btn31.setType("view");
-		btn31.setUrl("http://html5demo.bringbi.com/reportTree/common.html");
+		btn31.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa76644985975ad93&redirect_uri=http%3A%2F%2Foepp.cn%2FweChatpay%2FtopayServlet%3FuserId%3Db83w45345088801%26orderNo%3D1355444812%26describe%3D%3D%E8%A5%BF%E7%93%9C%26money%3D1780.00&response_type=code&scope=snsapi_base&state=123#wechat_redirect");
 
 		ViewButton btn32 = new ViewButton();
 		btn32.setName("赛事公告");
 		btn32.setType("view");
-		btn32.setUrl("http://html5demo.bringbi.com/reportTree/common.html");
+		btn32.setUrl("http://www.oepp.cn/weChatpay/mainServlet");
 
 		
 		

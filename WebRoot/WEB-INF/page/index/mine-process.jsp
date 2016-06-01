@@ -17,6 +17,9 @@ $(function(){
 	$('.tjCen dd .bInfo:odd').css('background-color','#f9fefa')
 	$('.top10 tr').find('td').slice(0,10).addClass('tdCol');
 	$('#ckBox .panel div:first').css('min-width','600px');
+	var d=new Date();
+	var t=d.toLocaleTimeString();
+    document.getElementById("timer").innerHTML=t;
 })
 </script>
 </head>
@@ -30,11 +33,36 @@ $(function(){
 				<div id="tTab">
 					<!--今日bengin-->
 					<div class="sjMain active">
-						<span class="tjTip">统计区间：<em>2015年07月27日-2016-04-12</em></span>
+						<span class="tjTip">统计区间：<em >${dataList.times }</em></span>
 						<div class="tjBox">
-							<div class="tjTop">截至当天<em>23：50</em>为止，共有学习历程 <b>3</b> 件</div>
+							<div class="tjTop">截至当天<em id="timer">23：50</em>为止，共有学习历程 <b>${dataList.sizes}</b> 件</div>
 							<div class="tjCen">
 								<dl id="yzCls">
+								 <c:forEach var="obj" items="${dataList.data}" varStatus="stat">
+								 
+								 	<dd>
+										<img class="dTip" src="../image/icon_tj_m.gif"/>
+										<!-- <span>2015-04-12</span> -->
+										<div class="bInfo">
+											<p class="border_corr"></p>
+											<dl>
+												<dt>${obj.startDate }&nbsp;&nbsp;${obj.courseName }<em>${obj.totalCourse }课时</em>
+												<c:if test="">
+												<br/>
+												 <em><a href="javascript:isLogin('${openId }','${shId }','${obj.courseId }')">缴费</a></em>
+												 </c:if>
+												<i></i></dt>
+												<dd>
+													<p>
+														学习奖项(此功能后续完善)
+													</p>
+													<a href="#" >查看信息</a>
+												</dd>
+											</dl>
+										</div>
+									</dd>
+								 	
+								 </c:forEach>
 									<dd>
 										<img class="dTip" src="../image/icon_tj_m.gif"/>
 										<!-- <span>2015-04-12</span> -->

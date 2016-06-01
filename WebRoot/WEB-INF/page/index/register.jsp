@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<%@page import="net.sf.json.JSONObject"%>
+<%@page import="org.stan.yxgz.util.UrlUtil"%>
+<%@page import="org.stan.yxgz.util.UrlUtil.HttpRequestData"%>
+<%@page import="org.stan.yxgz.util.PropertyUtils"%>
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html lang="en">
@@ -12,12 +16,14 @@
 <link rel="stylesheet" type="text/css" href="${root1 }/css/common.css" />
 <script type="text/javascript" src="${root1 }/js/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="${root1 }/js/center.js"></script>
+<script type="text/javascript" src="${root1 }/js/My97DatePicker/WdatePicker.js"></script>
 <style type="text/css">
 .btnBtm button{margin-left:10px;vertical-align:middle;background-color:#a0d62c;color:#FFF;font-size:14px;font-family:'MicroSoft YaHei';border-top:1px solid #afe969;border-bottom:1px solid #5d8a33;border-left:1px solid #afe969;border-right:1px solid #5d8a33;display:inline-block;text-align:center;width:82px;cursor:pointer;height:28px;}
 .btnBtm button:hover{background-color:#dcedfd;color:#FFF;}
 </style>
 <!-- 出生年月-->
 <script type="text/javascript">
+
 	/*加载年份*/
 	function years(obj, Cyear) {
 		var len = 134; // select长度,即option数量
@@ -68,7 +74,7 @@
 		var studentName=$("#studentName").val();
 		var phone=$("#phone").val();
 		var address=$("#address").val();
-		var month=$("#bornMonth").val();
+		//var month=$("#bornMonth").val();
 		var year=$("#bornYear").val();
 		if(studentName==''){
 			/* $("#message").css("display","block");
@@ -82,10 +88,6 @@
 			/* $("#message").css("display","block");
 			$("#message").html("请输入住址."); */
 			return;
-		}else if(month==null ){
-			/* $("#message").css("display","block");
-			$("#message").html("请选择出生年月."); */
-			return;
 		}else if( year==null){
 			return;
 		}else{
@@ -96,12 +98,28 @@
 	}
 </script>
 </head>
+ <%
+/* String	appid =PropertyUtils.getWebServiceProperty("appid");
+String	appSecret =PropertyUtils.getWebServiceProperty("appSecret");
+
+String code=request.getParameter("code");
+String url="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
+url=url.replace("APPID", appid).replace("SECRET", appSecret).replace("CODE", code);
+ HttpRequestData data = UrlUtil.sendGet(url);
+String json=data.getResult();
+JSONObject obj = JSONObject.fromObject(json);
+String openid =obj.get("openid").toString(); 
+String shId=request.getParameter("shId"); */
+%> 
 <body>
 <div class="ifrRight">
 	<!-- main -->
 	<div class="yjBox">
 			<div id="addS" class="easyui-dialog" style="padding:10px 6px;width:50%;">
 			<form id="FormInputInfo" name="FormInputInfo" action="${root1 }/index/subUser.do" method="post">
+			<input type="hidden" id="openId" name="openId" value="${openId }"/> 
+			<!-- <input type="hidden" id="openId" name="openId" value="oUDNMwBwAOoiYp0JrqHOx6BFiupo"/> -->
+			<input type="hidden" id="shId" name="shId" value="${shId }"/>
 			<div class="addBox">
 				<ul>
 					<li>
@@ -118,11 +136,12 @@
 					</li>
 					<li>
 						<span>出生年月</span>
-						<select size="1" name="bornYear" required="required" id="bornYear" style="width: 70px"
+						<!-- <select size="1" name="bornYear" required="required" id="bornYear" style="width: 70px"
 							onfocus="years('bornYear',new Date().getFullYear()),change_date()"
 							onchange="change_date()"></select>&nbsp; <select size="1"
 							name="bornMonth" id="bornMonth" required="required" style="width: 70px"
-							onfocus="months(),change_date()" onchange="change_date()"></select>
+							onfocus="months(),change_date()" onchange="change_date()"></select> -->
+							<input type="text" id="bronYear" name="bornYear" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"  />
 					</li>
 					<li>
 						<span>性别&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>

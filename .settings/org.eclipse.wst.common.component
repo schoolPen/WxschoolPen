@@ -2,7 +2,7 @@
     <wb-module deploy-name="WxschoolPen">
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/" source-path="/WebRoot"/>
-        <property name="java-output-path" value="/WxschoolPen/build/classes"/>
+        <property name="java-output-path" value="/WxschoolPen/WebRoot/WEB-INF/classes"/>
         <property name="context-root" value="WxschoolPen"/>
     </wb-module>
 </project-modules>

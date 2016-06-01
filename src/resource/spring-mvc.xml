@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
@@ -14,7 +14,8 @@
 			http://www.springframework.org/schema/mvc
 			http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
 			http://www.springframework.org/schema/context
-			http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+			http://www.springframework.org/schema/context/spring-context-4.0.xsd
+			http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 	<!-- 启用spring mvc 注解 -->
 	<context:annotation-config />
 	<!-- 使Spring支持自动检测组件，如注解的Controller -->
@@ -54,9 +55,14 @@
 	 
    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-	    <property name="prefix"><value>/WEB-INF/page/</value></property>
+	    <!-- <property name="prefix"><value>/WEB-INF/page/</value></property> -->
 	    <property name="suffix"><value>.jsp</value></property>
 	</bean>
    
-
+<!--     
+   <bean id="dubboServiceInit" lazy-init="false" class="spring.StartSijaoConsumer" init-method="start" />
+   
+	<dubbo:application name="dtpt" owner="programmer" organization="dubbox" />
+    <dubbo:registry address="zookeeper://120.76.152.25:2181"/>
+	<dubbo:reference id="sijiaoService" interface="com.dt.dtpt.service.sijiao.SijiaoService"/> -->
 </beans>

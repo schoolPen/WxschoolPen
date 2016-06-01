@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +20,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.params.HttpClientParams;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.cookie.BasicClientCookie;
@@ -136,7 +139,7 @@ public class UrlUtil {
 			// 发送请求参数
 			// if (params != null) {
 			// System.out.println("params=" + params);
-			// params = URLEncoder.encode(params, "UTF-8");
+			 params = URLEncoder.encode(params, "UTF-8");
 			out.print(params);
 			// System.out.println("encode|params=" + params);
 			// }
@@ -176,6 +179,63 @@ public class UrlUtil {
 		}
 		return data;
 	}
+	
+	
+	public static HttpRequestData sendPostEn(String url, String jsession, String param) {
+		logger.debug("url=" + url);
+		logger.debug("jsession=" + jsession);
+		//logger.debug("params=" + params);
+		HttpRequestData data = null;
+		String result = "";
+	
+		//params.add(new BasicNameValuePair("JSESSIONID", jsession));  
+		CookieStore cookieStore = new BasicCookieStore(); 
+		BasicClientCookie cookie = new BasicClientCookie("JSESSIONID", jsession);
+
+		
+		try {
+			HttpParams  httpParams = new BasicHttpParams();  
+	        // 设置连接超时和 Socket 超时，以及 Socket 缓存大小  
+	        HttpConnectionParams.setConnectionTimeout(httpParams, 20 * 1000);  
+	        HttpConnectionParams.setSoTimeout(httpParams, 20 * 1000);  
+	        HttpConnectionParams.setSocketBufferSize(httpParams, 8192);  
+	        // 设置重定向，缺省为 true  
+	        HttpClientParams.setRedirecting(httpParams, true);  
+	        // 设置 user agent  
+	        String userAgent = "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.2) Gecko/20100115 Firefox/3.6";  
+	        HttpProtocolParams.setUserAgent(httpParams, userAgent);  
+	        // 创建一个 HttpClient 实例  
+	        // 注意 HttpClient httpClient = new HttpClient(); 是Commons HttpClient  
+	        // 中的用法，在 Android 1.5 中我们需要使用 Apache 的缺省实现 DefaultHttpClient  
+	        HttpClient httpClient = new DefaultHttpClient(httpParams);  
+	        cookieStore.addCookie(cookie); 
+	        //httpClient.setCookieStore(cookieStore); 
+			HttpPost postMethod = new HttpPost(url); 
+			
+			postMethod.setHeader("Cookie" , "JSESSIONID="+jsession);
+		   // postMethod.setEntity(new UrlEncodedFormEntity(params, "utf-8")); //将参数填入POST Entity中  
+		    postMethod.setEntity(new StringEntity(param, Charset.forName("UTF-8")));                
+		    HttpResponse response = httpClient.execute(postMethod); //执行POST方法  
+
+			
+
+			
+			data = new HttpRequestData();
+			//data.setHead(response.ge);
+			data.setResult(EntityUtils.toString(response.getEntity(), "utf-8"));
+		} catch (Exception e) {
+			connectCount++;
+			logger.info("发送POST请求异常"+e);
+			System.out.println("发送POST请求出现异常！" + e);
+			e.printStackTrace();
+			//if(connectCount<=2)
+			//	sendPost(url, jsession, params,timeOut);
+			
+		}
+		
+		return data;
+	}
+	
 	
 	public static HttpRequestData sendPost1(String url, String jsession, String param,int timeOut) {
 		logger.debug("url=" + url);
@@ -310,6 +370,29 @@ public class UrlUtil {
 		}
 		return data;
 	}
+	
+	 public static String httUrl(String ADD_URL,String params){
+		 String resData="";
+	    	try {
+	    		
+				DefaultHttpClient httpClient = new DefaultHttpClient();
+				HttpPost method = new HttpPost(ADD_URL);
+				StringEntity entity = new StringEntity(params,"utf-8");//解决中文乱码问题    
+				entity.setContentEncoding("UTF-8");    
+				entity.setContentType("application/json");    
+				method.setEntity(entity);
+				HttpResponse result = httpClient.execute(method);  
+				  
+	            // 请求结束，返回结果  
+	            resData = EntityUtils.toString(result.getEntity());  
+	            
+			} catch (Exception e) {
+				e.printStackTrace();
+			}    
+	    	return resData;
+	    }
+	
+	
 	/**
 	 * 返回内容类
 	 * 

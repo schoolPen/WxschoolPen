@@ -23,7 +23,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.core.util.QuickWriter;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
-import com.thoughtworks.xstream.io.xml.XppDriver;
+
 
 public class MessageUtil {
 	public static final String RESP_MESSAGE_TYPE_TEXT = "text";
@@ -91,16 +91,16 @@ public class MessageUtil {
 		return xStream.toXML(newsMsgResp);
 	}
 	
-	public static String musicMessageToXml(MusicMsgResp musicMessage) {  
+	/*public static String musicMessageToXml(MusicMsgResp musicMessage) {  
 	    xstream.alias("xml", musicMessage.getClass());  
 	    return xstream.toXML(musicMessage);  
-	}  
+	}  */
 
 	/**
 	 * 扩展xstrem 使其支持CDATA块
 	 * 
 	 */
-
+/*
 	public static XStream xstream = new XStream(new XppDriver() {
 		public HierarchicalStreamWriter createWriter(Writer out) {
 			return new PrettyPrintWriter(out) {
@@ -122,7 +122,7 @@ public class MessageUtil {
 				}
 			};
 		}
-	});
+	});*/
 	/**
 	 * 机器人对话
 	 * @param type  是否是关注,type=attention  关注，其他就是机器人对话
@@ -224,12 +224,12 @@ public class MessageUtil {
 					newsMsgResp.setArticles(articlelList);
 					result=MessageUtil.newsMessageToXml(newsMsgResp);
 				}else{
-				   TextMsgResp textMsgResp = new TextMsgResp();
-		         textMsgResp.setToUserName(fromUser);
-		         textMsgResp.setFromUserName(toUser);
-		         textMsgResp.setCreateTime(new Date().getTime());
-		         textMsgResp.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
-		         textMsgResp.setContent("您输入\""+value+"\"无法被识别,请按照提示输入，谢谢合作.祝你生活愉快!");
+				    TextMsgResp textMsgResp = new TextMsgResp();
+			        textMsgResp.setToUserName(fromUser);
+			        textMsgResp.setFromUserName(toUser);
+			        textMsgResp.setCreateTime(new Date().getTime());
+			        textMsgResp.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
+			        textMsgResp.setContent("您输入\""+value+"\"无法被识别,请按照提示输入，谢谢合作.祝你生活愉快!");
 					result=MessageUtil.textMessageToXml(textMsgResp);
 				}
 			}

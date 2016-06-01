@@ -13,9 +13,13 @@ import org.stan.yxgz.msgresp.Article;
 import org.stan.yxgz.msgresp.ImageMsgResp;
 import org.stan.yxgz.msgresp.NewsMsgResp;
 import org.stan.yxgz.msgresp.TextMsgResp;
+import org.stan.yxgz.pojo.AccessToken;
 import org.stan.yxgz.util.MessageUtil;
 import org.stan.yxgz.util.PropertyUtils;
 import org.stan.yxgz.util.StaticDataCache;
+import org.stan.yxgz.util.YiXinUtil;
+
+import com.dt.dtpt.mybatis.model.publicwx.WxUserPublic;
 
 
 public class CoreService {
@@ -30,8 +34,9 @@ public class CoreService {
 			//request.getSession().setAttribute("openIdtest", fromUserName);
 			String toUserName = requestMap.get("ToUserName");
 			String msgType = requestMap.get("MsgType");
-			//AccessToken at = YiXinUtil.getAccessToken("wx2a74f8196b2017de","83e7ae2de703af68b6c43b6787abbbdd");
-			//JSONObject obj = UserUtil.findUserByOpenId(at.getToken(), fromUserName);
+			String	appid =PropertyUtils.getWebServiceProperty("appid");
+			String	appSecret =PropertyUtils.getWebServiceProperty("appSecret");
+			AccessToken at = YiXinUtil.getAccessToken(appid, appSecret);
 			// 回复文本信息
 			TextMsgResp textMsgResp = new TextMsgResp();
 			textMsgResp.setToUserName(fromUserName);
@@ -60,10 +65,12 @@ public class CoreService {
 				if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
 					respContent =MessageUtil.parseFileString(null, "attention", null, falg,fromUserName,toUserName);
 					textMsgResp.setContent(respContent);
+					System.out.println(respContent);
 					respMessage = MessageUtil.textMessageToXml(textMsgResp);
+					attentionEvnent(at.getToken(),fromUserName);
 				} else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
 					System.out.println("------解绑开始--------");
-					InterfaceService.unbinded(fromUserName);
+					//InterfaceService.unbinded(fromUserName);
 					respContent = "感谢你关注蔡老师培训班！祝你生活愉快\n";
 					textMsgResp.setContent(respContent);
 					respMessage = MessageUtil.textMessageToXml(textMsgResp);
@@ -166,9 +173,9 @@ public class CoreService {
 					   String opt="?";
                   if(eventKey.indexOf("?")>=0)
                      opt="&";
-                  String reqUrl="http://html5demo.bringbi.com/main?type=login"+opt+"openId="+fromUserName;
+                  /*String reqUrl="http://html5demo.bringbi.com/main?type=login"+opt+"openId="+fromUserName;
                   System.out.println("reqUrl--------"+reqUrl);
-                  request.getRequestDispatcher(reqUrl).forward(request, response);
+                  request.getRequestDispatcher(reqUrl).forward(request, response);*/
 					}
 				
 
@@ -193,7 +200,19 @@ public class CoreService {
 		return respMessage;
 	}
 	
-	
+	public static void attentionEvnent(String accessToken,String openId){
+		String shId=PropertyUtils.getWebServiceProperty("shId");
+		System.out.println("accessToken:"+accessToken);
+		Map<String,Object> map=YiXinUtil.getUserInfo(accessToken, openId);
+		WxUserPublic wx=new WxUserPublic();
+		wx.setInCity(map.get("country")+"-"+map.get("province")+"-"+map.get("city"));
+		wx.setAsName(map.get("nickname")+"");
+		wx.setLogo(map.get("headimgurl")+"");
+		wx.setWxOpenid(openId);
+		//wx.setWxUnionid(map.get("unionid")+"");
+		wx.setUserId(shId);
+		WXinterfaceService.attentionUser(wx, shId);
+	}
     
     public static String subscribeStr(){
     	StringBuffer buffer = new StringBuffer();  
