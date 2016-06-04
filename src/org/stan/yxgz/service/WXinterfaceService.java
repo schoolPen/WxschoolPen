@@ -249,13 +249,17 @@ public class WXinterfaceService {
 	}
 	 public static void JsonToHashMap(JSONObject jsonData, Map<String, Object> rstList) {  
 		 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		 SimpleDateFormat sdfs=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	        try {  
 	            for (Iterator<String> keyStr = jsonData.keys(); keyStr.hasNext();) {  
 	  
 	                String key1 = keyStr.next().trim();
 	                String value=jsonData.get(key1)+"";
 	                if(key1.equals("startDate") || key1.equals("endDate") || key1.equals("editDate") ||key1.equals("payDate"))
-	                	value=sdf.format(new Date(jsonData.getLong(key1)));
+	                	if(key1.equals("payDate") && StringUtils.isNotBlank(jsonData.getString(key1)))
+	                		value=sdfs.format(new Date(jsonData.getLong(key1)));
+	                	else
+	                		value=sdf.format(new Date(jsonData.getLong(key1)));
 	                if(!value.equals("null") && !value.equals(""))
 	                	rstList.put(key1, value.equals("{}")?"":value);
 	                /*if (jsonData.get(key1) instanceof JSONObject) {  
@@ -471,12 +475,14 @@ public class WXinterfaceService {
 				JSONObject jo = JSONObject.fromObject(eduStudent,jsonConfig);
 				String params=jo.toString();
 				json = UrlUtil.httUrl(url, params);
+				System.out.println(json);
 			} else
 				json = "{\"success\":true,\"title\":\"操作成功\",\"reason\":\"操作成功\",\"result\":{studentId:0bd22f1f-2aee-4e74-8ee0-144ffedd3822}}";
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
 		}
+		System.out.println(url);
 		System.out.println("---------saveUser------------------注册接口"+json);
 		Map<String, Object> result = new HashMap<String, Object>();
 
@@ -833,4 +839,22 @@ public class WXinterfaceService {
 		}
 		
 	}
+	
+	public static String isBuy(String shId,String openId,String courseId) {
+		String url = PropertyUtils.getWebServiceProperty("user.isBuy");
+		System.out.println(url);
+		url=url.replace("courseId", courseId).replace("shId", shId).replace("userOpenID",openId);
+		String json = "";
+		try {
+			System.out.println(courseId+";"+shId+";"+openId);
+			HttpRequestData data = UrlUtil.sendGet(url);
+			json = data.getResult();
+					System.out.println(json);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+		return json;
+	}
+	
 }

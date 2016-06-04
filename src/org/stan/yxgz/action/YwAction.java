@@ -49,6 +49,9 @@ public class YwAction extends KanqActionSupport {
 /*	@Resource
 	private IOperatorService operatorService;
 */
+	/*@Autowired
+	SijiaoService sijiaoService;*/
+	
 	private User user=new User();
 	private SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 	
@@ -200,6 +203,7 @@ public class YwAction extends KanqActionSupport {
 		ModelAndView view=new ModelAndView("/WEB-INF/page/index/buy");
 		String shId=request.getParameter("shId");
 		String studentName=request.getParameter("studentName");
+		shId=StringUtils.isBlank(shId)?PropertyUtils.getWebServiceProperty("shId"):shId;
 		String phone=request.getParameter("phone");
 		String openId=request.getParameter("openId");
 		String sex=request.getParameter("sex");
@@ -536,7 +540,7 @@ public class YwAction extends KanqActionSupport {
 		String pcount=request.getParameter("pcount");
 		String ptotal=request.getParameter("ptotal");
 		String common=request.getParameter("common");
-		
+			
 		return view;
 	}
 	
@@ -549,41 +553,21 @@ public class YwAction extends KanqActionSupport {
 		return rspData;
 	}
 	
-	/*@RequestMapping(value = "addOperator", method = RequestMethod.POST)
+	@RequestMapping(value = "isBuy")
 	@ResponseBody
-	public Map addOperator(@ModelAttribute OperatorEntity user, HttpServletRequest request) {
-		Map jsonMap = new HashMap();
-		String orgName=Utils.objectToNoEmpty(request.getParameter("orgName"),"");
-		String orgCode=Utils.objectToNoEmpty(request.getParameter("orgCode"),"");
-		String moreOrgName=Utils.objectToNoEmpty(request.getParameter("moreOrgName"),"");
-		String moreOrgCode=Utils.objectToNoEmpty(request.getParameter("moreOrgCode"),"");
-		//String createAuthor=Utils.objectToNoEmpty(OperatorUtils.getOperator().getAccount(),"");
-		String password=user.getPassword();
-		MD5 theMD5 = new MD5();
-		password = theMD5.getMD5ofStr(password);
-		try {
-			user.setPassword(password);
-			user.setOperator_id(UUID.randomUUID().toString());
-			user.setOrg_code(orgCode);
-			user.setOrg_name(orgName);
-			user.setMore_org_code(moreOrgCode);
-			user.setMore_org_name(moreOrgName);
-			user.setCreate_author("");
-			user.setCreate_time(new Date());
-			
-			operatorService.addOperator(user);
-			jsonMap.put("result", "0");
-			jsonMap.put("reason", "成功");
-		} catch (Exception e) {
-			jsonMap.put("result", "1");
-			jsonMap.put("reason", "失败");
-			System.out.println("testUserAction json data is error:::::::"
-					+ e.getMessage());
-		} finally {
-			return jsonMap;
-		}
+	public Object isBuy(){
+		String app = PropertyUtils.getWebServiceProperty("isTest");
+		
+		String shId=request.getParameter("shId");
+		shId=StringUtils.isBlank(shId)?PropertyUtils.getWebServiceProperty("shId"):shId;
+		String openId=request.getParameter("openId");
+		String courseId=request.getParameter("courseId");
+		String state="false";
+		if(app.equals("true"))
+			state="false";
+		else
+			state= WXinterfaceService.isBuy(shId, openId, courseId);
+		
+		return state;
 	}
-*/
-	
-	
 }

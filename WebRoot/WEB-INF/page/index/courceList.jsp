@@ -14,7 +14,7 @@
 <script type="text/javascript" src="${root1 }/js/center.js"></script>
 <script type="text/javascript">
 $(function(){
-	$('.tcont dd .bfo:odd').css('background-color','#f9fefa')
+	$('.tcont dd .bfo:odd').css('background-color','#f9fefa');
 	$('.top10 tr').find('td').slice(0,10).addClass('tdCol');
 	$('#ckBox .panel div:first').css('min-width','600px');
 });
@@ -30,14 +30,23 @@ function isLogin(openId,shId,courseId){
 				if(studentId==''){//注册
 					window.location='${root1}/index/register.do?openId='+openId+'&shId='+shId;
 				}else{
-					//1、添加到我的课程表里面ajax
+					//1、判断该用户是否已经购买过课程
 					
-					$.post("${root1 }/index/addMineCourse.do",{"openId":openId,"shId":shId,"courseId":courseId}, function(data) {
-						window.location='${root1}/mainWX?openId='+openId+'&shId='+shId+"&courseId="+courseId+"&courseSId="+data.data;
+					$.post("${root1 }/index/isBuy.do",{"openId":openId,"shId":shId,"courseId":courseId}, function(data) {
+						if(data=='true'){
+							alert("已经购买不能重复");
+						}else{
+							//2、添加到我的课程表里面ajax
+							
+							$.post("${root1 }/index/addMineCourse.do",{"openId":openId,"shId":shId,"courseId":courseId}, function(data) {
+								window.location='${root1}/mainWX?openId='+openId+'&shId='+shId+"&courseId="+courseId+"&courseSId="+data.data;
+					
+							}, 'json'); 
+						}
 			
 					}, 'json'); 
 					
-					//2、生成微信商户订单号
+					
 					
 					
 					
@@ -115,7 +124,7 @@ function isLogin(openId,shId,courseId){
 									<br/>
 									${obj.startDate } – ${obj.endDate } <em>剩余:${obj.maxStudents-obj.payStudents }</em>
 									<br/>
-									${obj.teachTime } <em><a href="javascript:isLogin('${openId }','${shId }','${obj.courseId }')">缴费</a></em>
+									${obj.teachTime } <em><c:if test="${(obj.maxStudents-obj.payStudents)!=0}"><a href="javascript:isLogin('${openId }','${shId }','${obj.courseId }')">缴费</a></c:if></em>
 									<br/>
 									${obj.teachAddress }
 									
