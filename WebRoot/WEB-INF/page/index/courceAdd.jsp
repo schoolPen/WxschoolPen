@@ -107,7 +107,7 @@
 			</ul>		
 		</form>
 		<button class="submit_btn" onclick="saveAjax()">提交</button>
-		<div class="tips_box" style="display:none;">我是漏/错填提示</div>
+		<div class="tips_box" style="display:none;"></div>
 </body>
 <script type="text/javascript">
 function saveAjax(){
