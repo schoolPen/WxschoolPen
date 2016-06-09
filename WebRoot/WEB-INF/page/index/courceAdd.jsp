@@ -22,15 +22,15 @@
 </style>
 </head>
 <body>
-		<form action="${root1 }/index/addCource.do" method="post" id="form_box" name="form_box">
+		<form action="${root1 }/index/addCource.do" method="post" id="form_box" name="form_box" onSubmit="return false;">
 			<input type="hidden"  name="shId" id="shId" value="${shId }"/>
 			<input type="hidden"  name="openId" id="openId" value="${openId }"/>
 			<ul class="user_information">
 				<p>课程基本信息<i>*</i></p>
 				<li>
 					<label for="name">学期：</label>
-					<select id="period" name="period">
-                     	<option value="1">春季</option>
+					<select id="period" name="period" required="required">
+                     	<option value="1" selected="selected">春季</option>
 						<option value="2">暑假</option>
 						<option value="3">秋季</option>
 						<option value="4">寒假</option>
@@ -38,8 +38,8 @@
 				</li>
 				<li>
 					<label for="name">课程类型：</label>
-					<select id="courceType" name="courceType">
-                     	 <option value="1">软笔</option>                     	 
+					<select id="courceType" name="courceType" required="required">
+                     	 <option value="1" selected="selected">软笔</option>                     	 
                      	 <option value="2">硬笔</option>
                      	 <option value="3">国画</option>                     	 
                       	 <option value="4">围棋</option>                    	 
@@ -47,27 +47,27 @@
 				</li>
 				<li>
 					<label for="business_numb">课程名称：</label>
-					<input placeholder="课程名称(例如：2016年秋季软笔中级班)，限20个汉字内" type="text" required="required" name="courceName" id="courceName"/>
+					<input maxlength="20" placeholder="请输入课程名称(例如：2016年秋季软笔中级班)，限20个字内" type="text" required="required" name="courceName" id="courceName"/>
 					<a class="clear_btn"></a>
 				</li>
 				<li>
 					<label for="business_numb">老师姓名：</label>
-					<input placeholder="老师的姓名(例如：蔡老师)，限8个汉字内" type="text" required="required" name="teacherName" id="teacherName"/>
+					<input maxlength="12" placeholder="请输入老师的姓名(例如：蔡老师)，限12个字内" type="text" required="required" name="teacherName" id="teacherName"/>
 					<a class="clear_btn"></a>
 				</li>
 				<li>
 					<label for="business_numb">总课时数：</label>
-					<input placeholder="课时总数(例如：50),限整数" type="text" name="pcount" required="required" id="pcount"/>
+					<input placeholder="请输入课时总数(例如：50),限整数" type="text" name="pcount" required="required" id="pcount"/>
 					<a class="clear_btn"></a>
 				</li>
 				<li>
 					<label for="business_numb">金额：</label>
-					<input placeholder="总金额数(例如：800)" type="text" name="money" required="required" id="money"/>
+					<input placeholder="请输入总金额数(例如：800)" type="text" name="money" required="required" id="money"/>
 					<a class="clear_btn"></a>
 				</li>
 				<li>
 					<label for="business_numb">限制人数：</label>
-					<input placeholder="限制人数(例如：20)，限整数" type="text" name="ptotal" required="required" id="ptotal" value="20" />
+					<input placeholder="请输入限制人数(例如：20)，限整数" type="text" name="ptotal" required="required" id="ptotal" value="20" />
 					<a class="clear_btn"></a>
 				</li>
 			</ul>
@@ -84,7 +84,7 @@
 				</li>
 				<li>
 					<label for="business_numb">开始日期：</label>
-					<input placeholder="开始日期" type="text" id="btime" name="btime" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"  />
+					<input required="required" placeholder="开始日期" type="text" id="btime" name="btime" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"  />
 					<a class="clear_btn"></a>
 				</li>
 				<li>
@@ -94,14 +94,14 @@
 				</li>
 				<li>
 					<label for="business_numb">指定时间：</label>
-					<input placeholder="上课时间(例如：每周二、周四08:00-09:00)" type="text" required="required" name="ptime" id="ptime"/>
+					<input placeholder="请输入上课时间(例如：每周二、周四08:00-09:00)" type="text" required="required" name="ptime" id="ptime"/>
 					<a class="clear_btn"></a>
 				</li>
 			</ul>
 			<ul class="fault_account">
 				<p>课程内容简介<i>*</i></p>
 				<li>
-                 <textarea placeholder="亲，您的故障描述有助于我们更好的排障哦" name="common" id="common" ></textarea>                   
+                 <textarea  maxlength="200" placeholder="亲，您的故障描述有助于我们更好的排障哦" name="common" id="common" ></textarea>                   
 				 <input name="okok" id="photo_select" required="required"  type="file" multiple="multiples" accept="image/jpeg" /> <!-- 设置multiple="multiples"选择1个以上的文件-->
 				</li>	
 			</ul>		
