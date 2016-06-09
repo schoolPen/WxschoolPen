@@ -13,174 +13,148 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>学员注册</title>
-<link rel="stylesheet" type="text/css" href="${root1 }/css/common.css" />
 <script type="text/javascript" src="${root1 }/js/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="${root1 }/js/center.js"></script>
+<link rel="stylesheet" href="${root1 }/css/Fault_Complaint.css" />
+<link rel="stylesheet" href="${root1 }/js/My97DatePicker/skin/WdatePicker.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<script type="text/javascript" src="${root1 }/js/Fault_Complaint.js"></script>
 <script type="text/javascript" src="${root1 }/js/My97DatePicker/WdatePicker.js"></script>
 <style type="text/css">
 .btnBtm button{margin-left:10px;vertical-align:middle;background-color:#a0d62c;color:#FFF;font-size:14px;font-family:'MicroSoft YaHei';border-top:1px solid #afe969;border-bottom:1px solid #5d8a33;border-left:1px solid #afe969;border-right:1px solid #5d8a33;display:inline-block;text-align:center;width:82px;cursor:pointer;height:28px;}
 .btnBtm button:hover{background-color:#dcedfd;color:#FFF;}
 </style>
+</head>
+<body>
+	<form id="form_box" name="form_box" action="${root1 }/index/subUser.do" method="post" onSubmit="return false;">
+		<input type="hidden" id="openId" name="openId" value="${openId }"/>
+			<input type="hidden" id="courseId" name="courseId" value="${courseId }"/>
+			<!-- <input type="hidden" id="openId" name="openId" value="oUDNMwBwAOoiYp0JrqHOx6BFiupo"/> -->
+			<input type="hidden" id="shId" name="shId" value="${shId }"/>
+			<ul class="user_information">
+				<p>学员基本信息</p>
+				<li>
+					<label for="name">姓名：<i>*</i></label>
+					<input maxlength="12" name="studentName" id="studentName" type="text" required="required" placeholder="请输入姓名(例如：王小薇)"/>
+					<a class="clear_btn"></a>
+				</li>
+				<li>
+					<label for="name">手机号码：<i>*</i></label>
+					<input maxlength="11" name="phone" required="required" onkeyup="this.value=this.value.replace(/\D/g,'')" id="phone" type=text placeholder="请输入手机号码(例如：13512726275)"/>
+					<a class="clear_btn"></a>
+				</li>
+				<li>
+					<label for="name">出生日期：<i>*</i></label>
+					<input required="required" placeholder="请选择出生日期" type="text" id="bornYear" name="bornYear" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'});" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'});" />
+					<a class="clear_btn"></a>
+				</li>
+				<li>
+					<label for="name">学员姓别：<i>*</i></label>
+					<select id="sex" name="sex" class="input_text">
+						<option value="0" selected="selected">男</option>
+						<option value="1">女</option>
+					</select>
+					<a class="clear_btn"></a>
+				</li>
+				<li>
+					<label for="phone_numb">现读班级：</label>
+					<select id="inSchool" name="inSchool" class="input_text">
+						<option value="1">幼班</option>
+						<option value="4">小一</option>
+						<option value="5">小二</option>
+						<option value="6">小三</option>
+						<option value="7">小四</option>
+						<option value="8">小五</option>
+						<option value="9">小六</option>
+						<option value="10">初一</option>
+						<option value="11">初二</option>
+						<option value="12">初三</option>
+						<option value="13">高一</option>
+						<option value="14">高二</option>
+						<option value="15">高三</option>
+						<option value="2">高中以上</option>
+						<option value="3">大学以上</option>
+                     </select>
+				</li>
+				<li>
+					<label for="name">住址：</label>
+					<input name="address" id="address" type="text" placeholder="请输入家庭地址"/>
+					<a class="clear_btn"></a>
+				</li>
+		</form>
+		<button class="submit_btn" onclick="save()">提交</button>
+		<div class="tips_box" style="display:none;"></div>
+</body>
 <!-- 出生年月-->
 <script type="text/javascript">
 
-	/*加载年份*/
-	function years(obj, Cyear) {
-		var len = 134; // select长度,即option数量
-		var selObj = document.getElementById(obj);
-		var selIndex = len - 1;
-		var newOpt; // OPTION对象
-
-		// 循环添加OPION元素到年份select对象中
-		for (i = 1; i <= len; i++) {
-			if (selObj.options.length != len) { // 如果目标对象下拉框升度不等于设定的长度则执行以下代码
-				newOpt = window.document.createElement("OPTION"); // 新建一个OPTION对象
-				newOpt.text = Cyear - len + i; // 设置OPTION对象的内容
-				newOpt.value = Cyear - len + i; // 设置OPTION对象的值
-				selObj.options.add(newOpt, i); // 添加到目标对象中
-			}
-
-		}
-	}
-
-	function months() {
-		var month = document.getElementById("bornMonth");
-		month.length = 0;
-		for (i = 1; i < 13; i++) {
-			month.options.add(new Option(i, i));
-		}
-
-	}
-
-	function change_date() {
-		// var birthday = document.birthday;  
-		var year = document.getElementById("bornYear");
-		var month = document.getElementById("bornMonth");
-		//var day = document.getElementById("date");
-		vYear = parseInt(year.value);
-		vMonth = parseInt(month.value);
-		//date.length = 0;
-
-		//根据年月获取天数  
-		var max = (new Date(vYear, vMonth, 0)).getDate();
-		for (var i = 1; i <= max; i++) {
-			//date.options.add(new Option(i, i));
-		}
-	}
-	
-	
 	//保存方法
 	function save(){
 		var studentName=$("#studentName").val();
 		var phone=$("#phone").val();
-		var address=$("#address").val();
 		//var month=$("#bornMonth").val();
 		var year=$("#bornYear").val();
 		if(studentName==''){
-			/* $("#message").css("display","block");
-			$("#message").html("请输入姓名."); */
+			/* tipMsg('学员姓名不能为空',2000);
+			$("#studentName").focus(); */
 			return;
-		}else if(phone==''){
-			/* $("#message").css("display","block");
-			$("#message").html("请输入电话号码."); */
-			return;
-		}else if(address==''){
-			/* $("#message").css("display","block");
-			$("#message").html("请输入住址."); */
-			return;
-		}else if( year==null){
-			return;
-		}else{
-			$("#FormInputInfo").submit();
 		}
-		
-		
+		if(phone==''){
+			/* tipMsg('手机号码不能为空',2000);
+			$("#phone").focus(); */
+			return;
+		}
+		if(year==''){
+			/* tipMsg('出生日期不能为空',2000);
+			$("#bornYear").focus(); */
+			return;
+		}
+		//$("#form_box").submit();
+		var form =$("form").serializeArray();
+		var url =$("form").attr("action");
+		url="${root1 }/index/subUser.do";
+		   $.ajax({
+		         url:url,
+		         data:form,
+		         type:'post',
+		         cache : false,
+		         dataType : 'json',
+		         success:function(data){
+		        	 if(  data.state == "false"){
+		        		 $('.tips_box').text("对不起，您提交的学员信息保存失败");
+		        			$('.tips_box').show();
+		        			setTimeout(function (){
+		        				$('.tips_box').text('');
+		        				$('.tips_box').hide();
+		        			}, 2000);
+		 			}else{
+		 				$.post("${root1 }/index/isBuy.do",{"openId":"${openId}","shId":"${shId}","courseId":"${courseId}"}, function(data) {
+							if(data=='true'){
+								$('.tips_box').text("对不起，您已经购买过该课程了。");
+			        			$('.tips_box').show();
+			        			setTimeout(function (){
+			        				$('.tips_box').text('');
+			        				$('.tips_box').hide();
+									window.location='${root1}/index/courceList.do?openId=${openId}';
+			        			}, 2000);
+							}else{
+				 				$.post("${root1 }/index/addMineCourse.do",{"openId":"${openId}","shId":"${shId}","courseId":"${courseId}"}, function(data) {
+				 					window.location='${root1}/mainWX?openId='+openId+'&shId='+shId+"&courseId=${courseId}"+"&courseSId="+data.data;
+				 				});
+							}
+		 				});
+		 				
+		 			}
+		         }
+		         }) ;
+	}
+
+	function tipMsg(msg,tms){
+		$('.tips_box').text(msg);
+		$('.tips_box').show();
+		setTimeout(function (){
+			$('.tips_box').text('');
+			$('.tips_box').hide();
+		}, tms);
 	}
 </script>
-</head>
- <%
-/* String	appid =PropertyUtils.getWebServiceProperty("appid");
-String	appSecret =PropertyUtils.getWebServiceProperty("appSecret");
-
-String code=request.getParameter("code");
-String url="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
-url=url.replace("APPID", appid).replace("SECRET", appSecret).replace("CODE", code);
- HttpRequestData data = UrlUtil.sendGet(url);
-String json=data.getResult();
-JSONObject obj = JSONObject.fromObject(json);
-String openid =obj.get("openid").toString(); 
-String shId=request.getParameter("shId"); */
-%> 
-<body>
-<div class="ifrRight">
-	<!-- main -->
-	<div class="yjBox">
-			<div id="addS" class="easyui-dialog" style="padding:10px 6px;width:50%;">
-			<form id="FormInputInfo" name="FormInputInfo" action="${root1 }/index/subUser.do" method="post">
-			<input type="hidden" id="openId" name="openId" value="${openId }"/> 
-			<!-- <input type="hidden" id="openId" name="openId" value="oUDNMwBwAOoiYp0JrqHOx6BFiupo"/> -->
-			<input type="hidden" id="shId" name="shId" value="${shId }"/>
-			<div class="addBox">
-				<ul>
-					<li>
-						<span>姓名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-						<input name="studentName" id="studentName" type="text" required="required" placeholder="请输入姓名"/>
-					</li>
-					<li>
-						<span>手机号码</span>
-						<input  maxlength="11" name="phone" required="required" onkeyup="this.value=this.value.replace(/\D/g,'')" id="phone" type=text placeholder="请输入手机号码"/>
-					</li>
-					<li>
-						<span>住址&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-						<input name="address" id="address" type="text" required="required" placeholder="请输入家庭地址" />
-					</li>
-					<li>
-						<span>出生年月</span>
-						<!-- <select size="1" name="bornYear" required="required" id="bornYear" style="width: 70px"
-							onfocus="years('bornYear',new Date().getFullYear()),change_date()"
-							onchange="change_date()"></select>&nbsp; <select size="1"
-							name="bornMonth" id="bornMonth" required="required" style="width: 70px"
-							onfocus="months(),change_date()" onchange="change_date()"></select> -->
-							<input type="text" id="bronYear" name="bornYear" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"  />
-					</li>
-					<li>
-						<span>性别&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-						<label> <input name="sex" type="radio" value="0" checked />男
-						</label> <label><input name="sex" type="radio" value="1" />女 </label>
-					</li>
-
-					<li>
-						<span>学年级&nbsp;&nbsp;</span>
-						<select id="inSchool" name="inSchool" class="input_text">
-							<option value="1">幼班</option>
-							<option value="4">小一</option>
-							<option value="5">小二</option>
-							<option value="6">小三</option>
-							<option value="7">小四</option>
-							<option value="8">小五</option>
-							<option value="9">小六</option>
-							<option value="10">初一</option>
-							<option value="11">初二</option>
-							<option value="12">初三</option>
-							<option value="13">高一</option>
-							<option value="14">高二</option>
-							<option value="15">高三</option>
-							<option value="2">高中以上</option>
-							<option value="3">大学以上</option>
-						</select>
-					</li>
-					<li><span id="message" style="display:none;color:red;text-align: center;"></span></li>
-				</ul>
-			</div>
-			<div class="btnBtm">
-				<button onclick="save()">保存</button>
-			</div>
-		</form>
-		</div>
-			
-	</div>
-				
-</div>
-</body>
-
 </html>
