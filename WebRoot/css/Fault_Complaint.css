@@ -132,3 +132,6 @@ input:-moz-placeholder {
 
 .tips_box{border-radius:4px; padding: 20px 10px 20px 10px; text-align: center; font-size: 14px; width:40%; background-color: rgba(0,0,0,0.8); color: #fff; position: fixed; top: 45%; left: 50%; margin-left: -20%; }
 
+.user_information i {
+	color:red;
+}
