@@ -119,18 +119,18 @@ function saveAjax(){
 	var common=$("#common").val();
 	var ptime=$("#ptime").val();
 	if(courceName==''){
-		tipMsg('课程名称不能为空',2000);
-		$("#courceName").focus();
+		/* tipMsg('课程名称不能为空',2000);
+		$("#courceName").focus(); */
 		return;
 	}
 	if(teacherName==''){
-		tipMsg('老师姓名不能为空',2000);
-		$("#teacherName").focus();
+		/* tipMsg('老师姓名不能为空',2000);
+		$("#teacherName").focus(); */
 		return;
 	}
 	if(pcount==''){
-		tipMsg('总课时数不能为空',2000);
-		$("#pcount").focus();
+		/* tipMsg('总课时数不能为空',2000);
+		$("#pcount").focus(); */
 		return;
 	}else{
 		if(isNaN(parseInt(pcount))){
@@ -143,8 +143,8 @@ function saveAjax(){
 		}
 	}
 	if( ptotal==''){
-		tipMsg('限制人数不能为空',2000);
-		$("#ptotal").focus();
+		/* tipMsg('限制人数不能为空',2000);
+		$("#ptotal").focus(); */
 		return;
 	}else{
 		if(isNaN(parseInt(ptotal))){
@@ -157,8 +157,8 @@ function saveAjax(){
 		}
 	}
 	if( money==''){
-		tipMsg('课程金额不能为空',2000);
-		$("#money").focus();
+		/* tipMsg('课程金额不能为空',2000);
+		$("#money").focus(); */
 		return;
 	}else{
 		if(isNaN(parseFloat(money))){
